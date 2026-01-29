@@ -1,0 +1,234 @@
+Metadata-Version: 2.4
+Name: PyAimRec
+Version: 0.1.0
+Summary: Adaptive image reconstruction based particle tracking
+License: Proprietary
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: numpy>=1.24
+Requires-Dist: scipy>=1.10
+Requires-Dist: matplotlib>=3.7
+Requires-Dist: tifffile>=2023.0
+
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Jan 29 09:07:22 2026
+
+@author: ZhangChi
+"""
+
+
+PyAimRec
+
+PyAimRec is a Python package for adaptive image reconstruction–based particle tracking, designed for high-precision localisation of radially symmetric particles in microscopy images.
+
+It supports two complementary reconstruction engines:
+
+Intensity-based reconstruction (AimRecIntensity)
+
+Gradient-based reconstruction (AimRecGradient)
+
+A lightweight wrapper class (AimRec) provides a unified user-facing interface while keeping all algorithmic logic inside the engine classes.
+
+This codebase is intended for research-grade analysis, where particle overlap, shape deformation, and sub-pixel accuracy matter.
+
+
+
+Key Features
+
+Adaptive reconstruction of particle images using learned radial shape functions
+
+Robust tracking under particle overlap
+
+Two interchangeable reconstruction modalities:
+
+Intensity (pixel residual–based)
+
+Gradient (vector field–based, baseline-free)
+
+Iterative shape refinement during tracking
+
+Golden-section search–based position optimisation
+
+Explicit control over convergence criteria
+
+Designed for manual, expert-level workflows as well as scripted runs
+
+
+
+Package Structure
+
+PyAimRec/
+├── src/
+│   └── PyAimRec/
+│       ├── __init__.py
+│       ├── AimRec.py              # thin wrapper
+│       ├── AimRecIntensity.py     # intensity engine
+│       ├── AimRecGradient.py      # gradient engine
+│       ├── Reconstruct_I.py
+│       ├── Reconstruct_G.py
+│       ├── CompareGradient.py
+│       ├── Iso_S.py
+│       ├── Iso_gr.py
+│       ├── Refine_S.py
+│       ├── Refine_grM.py
+│       ├── prepGoldenAR_2p2.py
+│       ├── prepGoldenAR_Np.py
+│       ├── prepGolden_2p2.py
+│       ├── prepGolden_Np.py
+│       ├── GoldenSectionSearch_*.py
+│       └── ...
+├── tests/
+│   ├── Runme_AimRec.py        # basic example / regression script
+│   ├── Runme_Multi.py         # multi-particle / advanced workflow
+│   └── ...
+├── README.md
+├── pyproject.toml
+└── ...
+
+
+Installation
+
+Requirements
+
+Python ≥ 3.10
+
+NumPy
+
+SciPy
+
+Matplotlib
+
+tifffile
+
+Install (development mode)
+
+From the repository root:
+
+pip install -e .
+
+After installation:
+
+from PyAimRec import AimRec
+
+
+Basic Usage
+
+Intensity-based reconstruction
+
+from PyAimRec import AimRec
+from tifffile import imread
+
+im = imread("image.tif")
+
+rec = AimRec(
+    im=im,
+    mode="intensity",
+    kwargs=dict(
+        ifbaseline=True,
+        Gkernel=0.5,
+        Rcut=25,
+        ifplot=True,
+    ),
+)
+
+rec.run()
+rec.summary(px_to_nm=73.8)
+
+Gradient-based reconstruction
+
+rec = AimRec(
+    im=im,
+    mode="gradient",
+    kwargs=dict(
+        Gkernel=0.5,
+        Rcut=25,
+        ifplot=True,
+    ),
+)
+
+rec.run()
+rec.summary()
+
+Shape-Preserving Re-runs
+
+After a full reconstruction, it is often useful to reapeat the reconstruction, starting with the learned shape and re-optimise positions.
+
+Both engines implement run_shape() for this purpose, and the wrapper exposes it directly.
+
+Default behaviour
+
+rec.run_shape(step=0.5, do_plot=True)
+
+This enforces internally:
+
+intensity mode:
+S = S_accept
+PosGuess = Pos_final
+
+gradient mode:
+gr = gr_accept
+PosGuess = Pos_final
+
+
+
+Tests / Example Scripts
+
+The tests/ directory contains runnable scripts demonstrating and validating the algorithms:
+
+python tests/Runme_AimRec.py
+python tests/Runme_Multi.py
+
+These scripts serve as:
+
+usage examples
+
+regression tests
+
+debugging / development entry points
+
+They are intentionally verbose and explicit.
+
+
+
+Design Philosophy
+
+Engines own behaviour
+AimRecIntensity and AimRecGradient contain all algorithmic logic.
+
+Wrapper routes only
+AimRec does not modify state or logic — it only delegates calls.
+
+Explicit over implicit
+No hidden state resets. Every workflow step is visible and controllable.
+
+Research-first API
+The code prioritises transparency and hackability over consumer convenience.
+
+Typical Use Cases
+
+Overlapping colloidal particles
+
+Soft particles with deformable images
+
+Thermoresponsive microgels
+
+Active or driven particle systems
+
+High-precision interparticle distance measurements
+
+
+
+Notes
+
+This package is not a general-purpose tracker.
+
+It assumes approximate radial symmetry and reasonable SNR.
+
+Convergence depends on initial guesses and chosen modality.
+
+
+
+Citation
+
+If you use PyAimRec in scientific work, please cite the associated methodological publication (in preparation).

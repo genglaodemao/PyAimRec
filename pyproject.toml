@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "PyAimRec"
+version = "0.1.0"
+description = "Adaptive image reconstruction based particle tracking"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "BSD-3-Clause"
+
+dependencies = [
+  "numpy>=1.24",
+  "scipy>=1.10",
+  "matplotlib>=3.7",
+  "tifffile>=2023.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["PyAimRec*"]
