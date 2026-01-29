@@ -77,24 +77,65 @@ If the import succeeds, PyAimRec is installed correctly.
 from PyAimRec import AimRec
 
 from tifffile import imread
+from scipy.io import loadmat
 
-im = imread("image.tif")
+
+im = imread("image_2.tif") #load image
+
+bg_mat = loadmat("BG.mat") #load background (.mat from matlab saved matrix in this case)
+BG = bg_mat.get("BG", None)
+
+im = im - BG #remove background
+
+#--- reconstruction ----
 
 rec = AimRec(
     im=im,
     mode="intensity",
     kwargs=dict(
+        invert=True,
         ifbaseline=True,
         Gkernel=0.5,
         Rcut=25,
-        ifplot=True,
     ),
 )
 
 rec.run()
 
+#--- refinement ---
+rec.run_shape(do_plot=True)
+
+#--- summary ---
 rec.summary(px_to_nm=73.8)
 ```
+It returns (number could change)
+
+ Adaptive Reconstruction Summary
+ 
+✔ Reconstruction finished.
+
+Baseline  : 8.178879e+01
+
+Converge: Reach minimal searching step.
+
+Iterations        : 46
+
+Shape updates     : 47
+
+Final error (er)  : 2.925491e+01
+
+Final particle positions (pixels):
+
+  Particle  1 : x =   43.891, y =   36.882
+  
+  Particle  2 : x =   51.095, y =   37.126
+
+Interparticle distance:
+
+  Distance (px)   : 7.2081
+  
+  Distance (nm)   : 532.74
+
 
 ### Gradient-based reconstruction
 
