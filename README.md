@@ -1,4 +1,7 @@
 # PyAimRec
+
+## Particle tracking via Adaptive Image Reconstruction
+
 PyAimRec is a Python package for adaptive image-reconstruction–based tracking of spherical colloids in bright-field microscopy images, with a particular focus on situations where particle images strongly overlap and conventional centroid or threshold-based tracking fails.
 
 The method represents each particle by a learned, radially symmetric shape function and iteratively reconstructs the full image from particle positions and shapes. Particle positions are refined through optimisation of the reconstruction error, while particle shapes are updated self-consistently from image residuals. This adaptive procedure enables nanometre-precision localisation even under severe image overlap.
@@ -14,7 +17,8 @@ Gradient-based reconstruction (AimRecGradient)
 A lightweight wrapper class (AimRec) provides a unified user-facing interface while keeping all algorithmic logic inside the engine classes.
 
 
-Key Features
+
+## Key Features
 
 Adaptive reconstruction of particle images using learned radial shape functions
 
@@ -30,71 +34,37 @@ Iterative shape refinement during tracking
 
 Golden-section search–based position optimisation
 
-Explicit control over convergence criteria
 
-Designed for manual, expert-level workflows as well as scripted runs
-
-
-
-Package Structure
-
-PyAimRec/
-├── src/
-│   └── PyAimRec/
-│       ├── __init__.py
-│       ├── AimRec.py              # thin wrapper
-│       ├── AimRecIntensity.py     # intensity engine
-│       ├── AimRecGradient.py      # gradient engine
-│       ├── Reconstruct_I.py
-│       ├── Reconstruct_G.py
-│       ├── CompareGradient.py
-│       ├── Iso_S.py
-│       ├── Iso_gr.py
-│       ├── Refine_S.py
-│       ├── Refine_grM.py
-│       ├── prepGoldenAR_2p2.py
-│       ├── prepGoldenAR_Np.py
-│       ├── prepGolden_2p2.py
-│       ├── prepGolden_Np.py
-│       ├── GoldenSectionSearch_*.py
-│       └── ...
-├── tests/
-│   ├── Runme_AimRec.py        # basic example / regression script
-│   ├── Runme_Multi.py         # multi-particle / advanced workflow
-│   └── ...
-├── README.md
-├── pyproject.toml
-└── ...
-
-
-Installation
+## Installation
 
 Requirements
 
 Python ≥ 3.10
 
-NumPy
+### Install from GitHub (recommended)
 
-SciPy
+Install the latest version directly from GitHub:
 
-Matplotlib
+pip install git+https://github.com/genglaodemao/PyAimRec.git
 
-tifffile
+### Install from source (development mode)
 
-Install (development mode)
+Clone the repository and install in editable mode:
 
-From the repository root:
-
+git clone https://github.com/genglaodemao/PyAimRec.git
+cd PyAimRec
 pip install -e .
 
-After installation:
+### Verify installation
 
 from PyAimRec import AimRec
 
+If the import succeeds, PyAimRec is installed correctly.
 
-Basic Usage
 
-Intensity-based reconstruction
+## Basic Usage
+
+### Intensity-based reconstruction
 
 from PyAimRec import AimRec
 from tifffile import imread
@@ -115,7 +85,7 @@ rec = AimRec(
 rec.run()
 rec.summary(px_to_nm=73.8)
 
-Gradient-based reconstruction
+### Gradient-based reconstruction
 
 rec = AimRec(
     im=im,
@@ -130,7 +100,7 @@ rec = AimRec(
 rec.run()
 rec.summary()
 
-Shape-Preserving Re-runs
+### Refinement (optional)
 
 After a full reconstruction, it is often useful to reapeat the reconstruction, starting with the learned shape and re-optimise positions.
 
@@ -152,7 +122,7 @@ PosGuess = Pos_final
 
 
 
-Tests / Example Scripts
+## Tests / Example Scripts
 
 The tests/ directory contains runnable scripts demonstrating and validating the algorithms:
 
@@ -171,7 +141,7 @@ They are intentionally verbose and explicit.
 
 
 
-Design Philosophy
+## Design Philosophy
 
 Engines own behaviour
 AimRecIntensity and AimRecGradient contain all algorithmic logic.
@@ -185,11 +155,12 @@ No hidden state resets. Every workflow step is visible and controllable.
 Research-first API
 The code prioritises transparency and hackability over consumer convenience.
 
-Typical Use Cases
 
-Overlapping colloidal particles
+## Typical Use Cases
 
-Soft particles with deformable images
+Overlapping colloidal particles 
+
+Optical tweezers potential measurements
 
 Thermoresponsive microgels
 
@@ -199,7 +170,7 @@ High-precision interparticle distance measurements
 
 
 
-Notes
+## Notes
 
 This package is not a general-purpose tracker.
 
@@ -209,6 +180,6 @@ Convergence depends on initial guesses and chosen modality.
 
 
 
-Citation
+## Citation
 
 If you use PyAimRec in scientific work, please cite the associated methodological publication (in preparation).
