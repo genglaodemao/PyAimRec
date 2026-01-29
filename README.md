@@ -209,7 +209,7 @@ Interparticle distance:
 
 with the following plot
 
-![AimRec intensity 2p - results](examples/figure_gradient_2p.png)
+![AimRec gradient 2p - results](examples/figure_gradient_2p.png)
 
 ### Refinement (optional)
 
