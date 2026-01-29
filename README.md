@@ -277,6 +277,13 @@ rec.run()
 #--- summary ---
 rec.summary(px_to_nm=73.8)
 ```
+
+It starts with showing the trackpy guess (initial guess). 
+
+*** Notice that initial guess must contain all candidate. If not, optimise the trackpy parameter first. ***
+
+![AimRec intensity multi - results](examples/figure_trackpy_multi.png)
+
 It returns (number could change)
 
  Adaptive Reconstruction Summary
