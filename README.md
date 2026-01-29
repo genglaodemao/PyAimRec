@@ -45,22 +45,27 @@ Python ≥ 3.10
 
 Install the latest version directly from GitHub:
 
+```md
 pip install git+https://github.com/genglaodemao/PyAimRec.git
+```
 
 ### Install from source (development mode)
 
 Clone the repository and install in editable mode:
 
+```md
 git clone https://github.com/genglaodemao/PyAimRec.git
 
 cd PyAimRec
 
 pip install -e .
+```
 
 ### Verify installation
 
+```python
 from PyAimRec import AimRec
-
+```
 If the import succeeds, PyAimRec is installed correctly.
 
 
@@ -68,6 +73,7 @@ If the import succeeds, PyAimRec is installed correctly.
 
 ### Intensity-based reconstruction
 
+```python
 from PyAimRec import AimRec
 
 from tifffile import imread
@@ -88,9 +94,11 @@ rec = AimRec(
 rec.run()
 
 rec.summary(px_to_nm=73.8)
+```
 
 ### Gradient-based reconstruction
 
+```python
 rec = AimRec(
     im=im,
     mode="gradient",
@@ -104,6 +112,7 @@ rec = AimRec(
 rec.run()
 
 rec.summary()
+```
 
 ### Refinement (optional)
 
@@ -113,7 +122,9 @@ Both engines implement run_shape() for this purpose, and the wrapper exposes it 
 
 Default behaviour
 
+```python
 rec.run_shape(step=0.5, do_plot=True)
+```
 
 This enforces internally:
 
@@ -135,9 +146,11 @@ PosGuess = Pos_final
 
 The tests/ directory contains runnable scripts demonstrating and validating the algorithms:
 
+```python
 python tests/Runme_AimRec.py
 
 python tests/Runme_Multi.py
+```
 
 These scripts serve as:
 
