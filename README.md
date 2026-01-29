@@ -445,7 +445,7 @@ High-precision interparticle distance measurements
 
 **PyAimRec is not responsible for particle detection or identification.**
 
-The algorithm starts from initial position estimates provided by an external particle-finding tool (e.g. trackpy). These initial estimates must include all and only the true particle candidates present in the image. If particles are missed or spurious candidates are included, users should optimise the detection parameters of the upstream tool before running PyAimRec.
+The algorithm starts from initial position estimates provided by "trackpy". These initial estimates must include all and only the true particle candidates present in the image. If particles are missed or spurious candidates are included, users should optimise the detection parameters of the upstream tool before running PyAimRec.
 
 PyAimRec assumes approximate radial symmetry and a reasonable signal-to-noise ratio. Convergence and performance depend on the quality of the initial position estimates and on the chosen reconstruction modality (intensity or gradient).
 
