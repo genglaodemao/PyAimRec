@@ -280,7 +280,7 @@ rec.summary(px_to_nm=73.8)
 
 It starts with showing the trackpy guess (initial guess). 
 
-*** Notice that initial guess must contain all candidate. If not, optimise the trackpy parameter first. ***
+** Notice that initial guess must contain all candidate. If not, optimise the trackpy parameter first. **
 
 ![AimRec intensity multi - results](examples/figure_trackpy_multi.png)
 
@@ -347,10 +347,33 @@ rec.run()
 #--- summary ---
 rec.summary(px_to_nm=73.8)
 ```
+It starts with showing the same trackpy guess (initial guess). 
+
+** Notice that initial guess must contain all candidate. If not, optimise the trackpy parameter first. **
 
 It returns (number could change)
 
+ Adaptive Reconstruction Summary
 
+✔ Reconstruction finished.
+
+Converge: Reach Plateau.
+
+Iterations        : 23
+
+Shape updates     : 24
+
+Final error (er)  : 1.842526e+01
+
+Final particle positions (pixels):
+
+  Particle  1 : x =   15.493, y =   14.271
+  
+  Particle  2 : x =   23.102, y =   22.420
+  
+  Particle  3 : x =   24.366, y =   56.418
+
+  ......
 
 with the following plot
 
