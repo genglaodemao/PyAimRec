@@ -1,5 +1,9 @@
 # PyAimRec
-PyAimRec is a research-grade Python package for adaptive image-reconstruction tracking of spherical colloids in strongly overlapping bright-field microscopy images. It enables nanometre-precision localisation and dynamic shape tracking of time-evolving or stimuli-responsive particles.
+PyAimRec is a Python package for adaptive image-reconstruction–based tracking of spherical colloids in bright-field microscopy images, with a particular focus on situations where particle images strongly overlap and conventional centroid or threshold-based tracking fails.
+
+The method represents each particle by a learned, radially symmetric shape function and iteratively reconstructs the full image from particle positions and shapes. Particle positions are refined through optimisation of the reconstruction error, while particle shapes are updated self-consistently from image residuals. This adaptive procedure enables nanometre-precision localisation even under severe image overlap.
+
+In addition to tracking particle positions, PyAimRec can resolve time-dependent changes in particle shape, making it suitable for studying stimuli-responsive or dynamically evolving colloids. The framework supports both intensity-based and gradient-based reconstruction models and is well suited for quantitative applications such as interparticle distance measurements, interaction-potential extraction, and optical-tweezers experiments involving closely spaced colloidal particles.
 
 It supports two complementary reconstruction engines:
 
@@ -8,9 +12,6 @@ Intensity-based reconstruction (AimRecIntensity)
 Gradient-based reconstruction (AimRecGradient)
 
 A lightweight wrapper class (AimRec) provides a unified user-facing interface while keeping all algorithmic logic inside the engine classes.
-
-This codebase is intended for research-grade analysis, where particle overlap, shape deformation, and sub-pixel accuracy matter.
-
 
 
 Key Features
