@@ -280,7 +280,7 @@ rec.summary(px_to_nm=73.8)
 
 It starts with showing the trackpy guess (initial guess). 
 
-** Notice that initial guess must contain all candidate. If not, optimise the trackpy parameter first. **
+**Notice that initial guess must contain all candidate. If not, optimise the trackpy parameter first.**
 
 ![AimRec intensity multi - results](examples/figure_trackpy_multi.png)
 
@@ -349,7 +349,7 @@ rec.summary(px_to_nm=73.8)
 ```
 It starts with showing the same trackpy guess (initial guess). 
 
-** Notice that initial guess must contain all candidate. If not, optimise the trackpy parameter first. **
+**Notice that initial guess must contain all candidate. If not, optimise the trackpy parameter first.**
 
 It returns (number could change)
 
@@ -443,12 +443,11 @@ High-precision interparticle distance measurements
 
 ## Notes
 
-This package is not a general-purpose tracker.
+**PyAimRec is not responsible for particle detection or identification.**
 
-It assumes approximate radial symmetry and reasonable SNR.
+The algorithm starts from initial position estimates provided by an external particle-finding tool (e.g. trackpy). These initial estimates must include all and only the true particle candidates present in the image. If particles are missed or spurious candidates are included, users should optimise the detection parameters of the upstream tool before running PyAimRec.
 
-Convergence depends on initial guesses and chosen modality.
-
+PyAimRec assumes approximate radial symmetry and a reasonable signal-to-noise ratio. Convergence and performance depend on the quality of the initial position estimates and on the chosen reconstruction modality (intensity or gradient).
 
 
 ## Citation
