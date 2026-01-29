@@ -103,7 +103,8 @@ rec = AimRec(
 rec.run()
 
 #--- refinement ---
-rec.run_shape(do_plot=True)
+rec.run_shape()
+rec.plot()
 
 #--- summary ---
 rec.summary(px_to_nm=73.8)
@@ -118,9 +119,9 @@ Baseline  : 8.178879e+01
 
 Converge: Reach minimal searching step.
 
-Iterations        : 46
+Iterations        : 37
 
-Shape updates     : 47
+Shape updates     : 39
 
 Final error (er)  : 2.925491e+01
 
@@ -136,6 +137,9 @@ Interparticle distance:
   
   Distance (nm)   : 532.74
 
+with the following plot
+
+![AimRec intensity 2p - results](examples/fig_intensity_2p.png)
 
 ### Gradient-based reconstruction
 
