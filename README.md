@@ -52,7 +52,9 @@ pip install git+https://github.com/genglaodemao/PyAimRec.git
 Clone the repository and install in editable mode:
 
 git clone https://github.com/genglaodemao/PyAimRec.git
+
 cd PyAimRec
+
 pip install -e .
 
 ### Verify installation
