@@ -104,8 +104,6 @@ rec = AimRec(
 
 rec.run()
 
-#--- refinement ---
-rec.run_shape()
 rec.plot()
 
 #--- summary ---
@@ -119,7 +117,7 @@ It returns (number could change)
 
 Baseline  : 8.178879e+01
 
-Converge: Reach minimal searching step.
+Converge: Reach Plateau.
 
 Iterations        : 37
 
@@ -174,8 +172,6 @@ rec = AimRec(
 
 rec.run()
 
-#--- refinement ---
-rec.run_shape()
 rec.plot()
 
 #--- summary ---
@@ -189,7 +185,7 @@ It returns (number could change)
 
 Baseline  : 8.178879e+01
 
-Converge: Reach minimal searching step.
+Converge: Reach Plateau.
 
 Iterations        : 25
 
@@ -213,7 +209,7 @@ with the following plot
 
 ![AimRec gradient 2p - results](examples/figure_gradient_2p.png)
 
-### Refinement (optional, included in above examples)
+### Refinement (optional)
 
 After a full reconstruction, it is often useful to reapeat the reconstruction, starting with the learned shape and re-optimise positions.
 
