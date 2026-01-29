@@ -69,6 +69,7 @@ If the import succeeds, PyAimRec is installed correctly.
 ### Intensity-based reconstruction
 
 from PyAimRec import AimRec
+
 from tifffile import imread
 
 im = imread("image.tif")
@@ -85,6 +86,7 @@ rec = AimRec(
 )
 
 rec.run()
+
 rec.summary(px_to_nm=73.8)
 
 ### Gradient-based reconstruction
@@ -100,6 +102,7 @@ rec = AimRec(
 )
 
 rec.run()
+
 rec.summary()
 
 ### Refinement (optional)
@@ -115,11 +118,15 @@ rec.run_shape(step=0.5, do_plot=True)
 This enforces internally:
 
 intensity mode:
+
 S = S_accept
+
 PosGuess = Pos_final
 
 gradient mode:
+
 gr = gr_accept
+
 PosGuess = Pos_final
 
 
@@ -129,6 +136,7 @@ PosGuess = Pos_final
 The tests/ directory contains runnable scripts demonstrating and validating the algorithms:
 
 python tests/Runme_AimRec.py
+
 python tests/Runme_Multi.py
 
 These scripts serve as:
@@ -146,15 +154,19 @@ They are intentionally verbose and explicit.
 ## Design Philosophy
 
 Engines own behaviour
+
 AimRecIntensity and AimRecGradient contain all algorithmic logic.
 
 Wrapper routes only
+
 AimRec does not modify state or logic — it only delegates calls.
 
 Explicit over implicit
+
 No hidden state resets. Every workflow step is visible and controllable.
 
 Research-first API
+
 The code prioritises transparency and hackability over consumer convenience.
 
 
