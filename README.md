@@ -139,25 +139,77 @@ Interparticle distance:
 
 with the following plot
 
-![AimRec intensity 2p - results](examples/fig_intensity_2p.png)
+![AimRec intensity 2p - results](examples/figure_intensity_2p.png)
 
 ### Gradient-based reconstruction
 
 ```python
+from PyAimRec import AimRec
+
+from tifffile import imread
+from scipy.io import loadmat
+
+
+im = imread("image_2.tif") #load image
+
+bg_mat = loadmat("BG.mat") #load background (.mat from matlab saved matrix in this case)
+BG = bg_mat.get("BG", None)
+
+im = im - BG #remove background
+
+#--- reconstruction ----
+
 rec = AimRec(
     im=im,
     mode="gradient",
     kwargs=dict(
+        invert=True,
+        ifbaseline=True,
         Gkernel=0.5,
         Rcut=25,
-        ifplot=True,
     ),
 )
 
 rec.run()
 
-rec.summary()
+#--- refinement ---
+rec.run_shape()
+rec.plot()
+
+#--- summary ---
+rec.summary(px_to_nm=73.8)
 ```
+It returns (number could change)
+
+ Adaptive Reconstruction Summary
+ 
+✔ Reconstruction finished.
+
+Baseline  : 8.178879e+01
+
+Converge: Reach minimal searching step.
+
+Iterations        : 25
+
+Shape updates     : 26
+
+Final error (er)  : 2.641208e+01
+
+Final particle positions (pixels):
+
+  Particle  1 : x =   43.772, y =   36.911
+  
+  Particle  2 : x =   50.968, y =   37.111
+
+Interparticle distance:
+
+  Distance (px)   : 7.1987
+  
+  Distance (nm)   : 531.27
+
+with the following plot
+
+![AimRec intensity 2p - results](examples/figure_gradient_2p.png)
 
 ### Refinement (optional)
 
