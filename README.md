@@ -69,7 +69,9 @@ from PyAimRec import AimRec
 If the import succeeds, PyAimRec is installed correctly.
 
 
-## Basic Usage
+## Basic Usage - 2 particles
+
+Below, we show the basic usage of AimRec using an example obtained from optical tweezers potential measurements. Two pNIPAM microgel particles were captured and slighty pushed against each other, resulting in strong image overlap.
 
 ### Intensity-based reconstruction
 
@@ -211,7 +213,7 @@ with the following plot
 
 ![AimRec gradient 2p - results](examples/figure_gradient_2p.png)
 
-### Refinement (optional)
+### Refinement (optional, included in above examples)
 
 After a full reconstruction, it is often useful to reapeat the reconstruction, starting with the learned shape and re-optimise positions.
 
@@ -238,8 +240,123 @@ gr = gr_accept
 PosGuess = Pos_final
 
 
+## Basic Usage - multi particles
+
+Below, we show the basic usage of AimRec using an example image of polydispersy microgel particles adsorbed on a coverslip.
+
+### Intensity-based reconstruction
+
+```python
+from PyAimRec import AimRec
+
+from tifffile import imread
+
+im = imread("image_multi.tif") #load image
+
+#--- reconstruction ----
+
+rec = AimRec(
+    im=im,
+    mode="intensity",
+    kwargs=dict(
+        ifbaseline=True,
+        ifplot=True,
+        ifdebug=False,
+        ifplot_init=True,
+        masscut=520,
+        Gkernel=0,
+        Rguess=2.5,
+        Rcut=18,
+        plateau_tol=1e-3,
+        step_min=1e-3,
+    ),
+)
+
+rec.run()
+
+#--- summary ---
+rec.summary(px_to_nm=73.8)
+```
+It returns (number could change)
+
+ Adaptive Reconstruction Summary
+ 
+✔ Reconstruction finished.
+
+Baseline  : 3.735762e+01
+
+Converge: Reach minimal searching step.
+
+Iterations        : 23
+
+Shape updates     : 24
+
+Final error (er)  : 1.815220e+01
+
+Final particle positions (pixels):
+
+  Particle  1 : x =   15.490, y =   14.265
+  
+  Particle  2 : x =   23.090, y =   22.419
+  
+  Particle  3 : x =   24.355, y =   56.400
+
+  ......
+  
+with the following plot
+
+![AimRec intensity multi - results](examples/figure_intensity_multi.png)
+
+### Gradient-based reconstruction
+
+```python
+from PyAimRec import AimRec
+
+from tifffile import imread
+
+im = imread("image_multi.tif") #load image
+
+#--- reconstruction ----
+
+rec = AimRec(
+    im=im,
+    mode="gradient",
+    kwargs=dict(
+        ifbaseline=True,
+        ifplot=True,
+        ifdebug=False,
+        ifplot_init=True,
+        masscut=520,
+        Gkernel=0,
+        Rguess=2.5,
+        Rcut=18,
+        plateau_tol=1e-3,
+        step_min=1e-3,
+    ),
+)
+
+rec.run()
+
+#--- summary ---
+rec.summary(px_to_nm=73.8)
+```
+
+It returns (number could change)
+
+
+
+with the following plot
+
+![AimRec gradient multi - results](examples/figure_gradient_multi.png)
+
 
 ## Tests / Example Scripts
+
+### Examples
+
+The examples/ directory contains runnable scripts and images demonstrating shown in this notebook:
+
+### tests
 
 The tests/ directory contains runnable scripts demonstrating and validating the algorithms:
 
