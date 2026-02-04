@@ -140,7 +140,6 @@ class AimRecIntensity:
     er: float = field(init=False, default=np.nan)
     distance_px: float = field(init=False, default=np.nan)
     er_history: np.ndarray | None = field(init=False, default=None)
-    dis_history_px: np.ndarray | None = field(init=False, default=None)
     shape_updates: int = field(init=False, default=0)
     iterations: int = field(init=False, default=0)
     baseline: float = field(init=False, default=np.nan)
@@ -372,15 +371,12 @@ class AimRecIntensity:
                 quit_flag = 1
                 self.quit_senario = 1
 
-            dis = float(np.sqrt((res[0, 0] - res[1, 0]) ** 2 + (res[0, 1] - res[1, 1]) ** 2))
             erALL.append(float(er))
-            disALL.append(dis)
-
+            
         # store loop outputs
         self.iterations = int(loop)
         self.shape_updates = int(update)
         self.er_history = np.array(erALL, dtype=np.float64)
-        self.dis_history_px = np.array(disALL, dtype=np.float64)
 
     # -----------------------
     # 3) final refinement
