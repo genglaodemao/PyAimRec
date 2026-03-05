@@ -447,3 +447,5 @@ PyAimRec assumes approximate radial symmetry and a reasonable signal-to-noise ra
 ## Citation
 
 If you use PyAimRec in scientific work, please cite the associated methodological publication (in preparation).
+
+Zhang, Chi, et al. "Real-Time Tracking of Shape-Changing Colloids via Adaptive Image Reconstruction." (2026).
